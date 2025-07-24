@@ -40,7 +40,7 @@ def scan_objects_with_flags(text: str, base_url: str, model="qwen3:32b") -> list
     prompt = f"""
 请从下面的中文描述中提取所有“物体名词”（即 object），并判断以下三个属性：
 
-1. refinable：是否是可细化的上级结构，如房子、桌子、床、书架等，设为 true。
+1. refinable：永远为true。
 2. interactable：是否可以与其交互，如可触碰、可拿起、可打开、可操作等，设为 true。
 3. is_entry：是否是可作为通道或入口的物体，如门、窗、洞口、楼梯口等，设为 true。
 

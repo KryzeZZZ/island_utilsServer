@@ -4,6 +4,7 @@ from services.motivate import extract_action_motives_ollama
 from services.scan import scan_objects_with_flags
 from services.moveenv import  generate_inner_scene
 from services.render import refine_object_descriptions
+from services.divide import extract_relations_ollama_webui
 
 app = FastAPI()
 
@@ -40,3 +41,8 @@ def obj_details(req: SceneRequest):
 @app.post("/generate/inner_scene")
 def inner_scene(req: SceneRequest):
     return {"scene": generate_inner_scene(req.entry_term, req.external_objects, BASE_URL)}
+
+#接口5: 获取一段话内的Object关系
+@app.post("/relationship")
+def relationship(req: MotiveRequest):
+    return {extract_relations_ollama_webui(req.text, BASE_URL)}
