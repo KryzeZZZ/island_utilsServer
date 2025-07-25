@@ -7,7 +7,7 @@ from services.render import refine_object_descriptions
 from services.divide import extract_relations_ollama_webui
 from services.dice import roll_for_action
 from services.user_dice import roll_for_user_action
-from services.vectorize import batch_vectorize_relations, batch_vectorize_attributes
+from services.vectorize import batch_vectorize_relations, batch_vectorize_descriptions
 from typing import List, Dict
 import os
 
@@ -41,11 +41,11 @@ class UserActionRequest(BaseModel):
 
 class VectorizeRelationsRequest(BaseModel):
     """关系向量化请求"""
-    relations: List[Dict[str, str]]  # [{"subject": "", "predicate": "", "object": "", "context": ""}, ...]
+    relations: List[Dict[str, str]]  # [{"subject": "", "predicate": "", "object": ""}, ...]
 
-class VectorizeAttributesRequest(BaseModel):
-    """属性向量化请求"""
-    attributes: List[Dict]  # [{"object_name": "", "attribute_name": "", "attribute_value": "", "context": ""}, ...]
+class VectorizeDescriptionsRequest(BaseModel):
+    """对象描述向量化请求"""
+    descriptions: List[str]  # ["描述1", "描述2", ...]
 
 class VectorSearchRequest(BaseModel):
     """向量搜索请求"""
@@ -108,8 +108,8 @@ def vectorize_relations(req: VectorizeRelationsRequest):
     """将关系转换为向量表示"""
     return batch_vectorize_relations(req.relations)
 
-# 接口9: 属性向量化
-@app.post("/vectorize/attributes")
-def vectorize_attributes(req: VectorizeAttributesRequest):
-    """将属性转换为向量表示"""
-    return batch_vectorize_attributes(req.attributes)
+# 接口9: 描述向量化
+@app.post("/vectorize/descriptions")
+def vectorize_descriptions(req: VectorizeDescriptionsRequest):
+    """将对象描述转换为向量表示"""
+    return batch_vectorize_descriptions(req.descriptions)
