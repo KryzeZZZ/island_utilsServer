@@ -8,6 +8,8 @@ from services.divide import extract_relations_ollama_webui
 from services.dice import roll_for_action
 from services.user_dice import roll_for_user_action
 from services.vectorize import batch_vectorize_relations, batch_vectorize_descriptions
+from services.movement import MovementService
+from services.graphdb import GraphDB
 from typing import List, Dict
 import os
 
@@ -52,6 +54,11 @@ class VectorSearchRequest(BaseModel):
     query_vector: List[float]
     threshold: float = 0.7
     limit: int = 10
+
+class MovementRequest(BaseModel):
+    """移动指令请求"""
+    user_id: str
+    command: str
 
 # 接口1：动作动机识别
 @app.post("/extract_motives")
@@ -113,3 +120,19 @@ def vectorize_relations(req: VectorizeRelationsRequest):
 def vectorize_descriptions(req: VectorizeDescriptionsRequest):
     """将对象描述转换为向量表示"""
     return batch_vectorize_descriptions(req.descriptions)
+
+# 接口10: 处理移动指令
+@app.post("/movement")
+def process_movement(req: MovementRequest):
+    """处理用户移动指令，支持目的地寻路和极坐标移动"""
+    graph = GraphDB(
+        os.getenv("NEO4J_URI", "bolt://localhost:7687"),
+        os.getenv("NEO4J_USER", "neo4j"),
+        os.getenv("NEO4J_PASSWORD", "20071028")
+    )
+    movement = MovementService(graph, BASE_URL)
+    
+    try:
+        return movement.process_movement(req.user_id, req.command)
+    finally:
+        graph.close()
