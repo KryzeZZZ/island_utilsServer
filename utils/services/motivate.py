@@ -11,7 +11,7 @@ def extract_after_think_block(text: str) -> str:
 KNOWN_MOTIVES = {"物品交互", "转移", "自身行为"}
 
 # 通过 Ollama 总结一个动作短语的动机
-def summarize_action_phrase_ollama(phrase: str, base_url: str, model_name="qwen3:32b") -> str:
+def summarize_action_phrase_ollama(phrase: str, base_url: str, model_name="deepseek-ai/DeepSeek-V3") -> str:
     prompt = f"""请从{KNOWN_MOTIVES}中挑选合适的词作为动机,只返回词，不要新建,有物品被使用了就是物品交互 no thinking：
 动作：{phrase}
 总结（直接返回，不要加上动机:）："""
@@ -25,7 +25,7 @@ def summarize_action_phrase_ollama(phrase: str, base_url: str, model_name="qwen3
         "top_p": 0.9
     }
 
-    headers = {"Content-Type": "application/json"}
+    headers = {"Content-Type": "application/json", "Authorization":  "Bearer sk-tbcaipmckbmbxkjpzmwgfutjtlgsnqecdmlvhlelinckvwok"}
 
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=30)

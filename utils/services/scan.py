@@ -23,7 +23,7 @@ def safe_parse_json(text: str) -> list:
     return []
 
 
-def scan_objects_with_flags(text: str, base_url: str, model="qwen3:32b") -> list:
+def scan_objects_with_flags(text: str, base_url: str, model="deepseek-ai/DeepSeek-V3") -> list:
     """
     使用大模型分析中文文本中的物体，并标注以下属性：
     - refinable：是否是上级结构，可进一步细化
@@ -68,6 +68,7 @@ def scan_objects_with_flags(text: str, base_url: str, model="qwen3:32b") -> list
 
     headers = {
         "Content-Type": "application/json"
+        , "Authorization": "Bearer sk-tbcaipmckbmbxkjpzmwgfutjtlgsnqecdmlvhlelinckvwok"
     }
 
     try:

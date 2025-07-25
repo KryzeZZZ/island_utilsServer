@@ -1,7 +1,7 @@
 import requests
 import json
 
-def refine_object_descriptions(objects: list, base_url: str, model: str = "qwen3:32b") -> dict:
+def refine_object_descriptions(objects: list, base_url: str, model: str = "deepseek-ai/DeepSeek-V3") -> dict:
     """
     根据输入的物体列表，使用 Ollama WebUI 模型生成每个物体的详细场景描述。
 
@@ -32,6 +32,7 @@ def refine_object_descriptions(objects: list, base_url: str, model: str = "qwen3
 
         headers = {
             "Content-Type": "application/json",
+            "Authorization":  "Bearer sk-tbcaipmckbmbxkjpzmwgfutjtlgsnqecdmlvhlelinckvwok"
         }
 
         try:

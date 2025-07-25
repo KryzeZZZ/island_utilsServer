@@ -1,7 +1,7 @@
 import requests
 
 
-def generate_inner_scene(entry_term: str, external_objects: list, base_url: str, model="qwen3:32b") -> str:
+def generate_inner_scene(entry_term: str, external_objects: list, base_url: str, model="deepseek-ai/DeepSeek-V3") -> str:
     """
     根据入口词语和入口外部物体，生成入口“内部”的大场景描述（约 80 字）
 
@@ -36,7 +36,7 @@ def generate_inner_scene(entry_term: str, external_objects: list, base_url: str,
     }
 
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json", "Authorization":  "Bearer sk-tbcaipmckbmbxkjpzmwgfutjtlgsnqecdmlvhlelinckvwok"
     }
 
     try:

@@ -38,7 +38,7 @@ no thinkning
     url = f"{base_url}/v1/chat/completions"
 
     payload = {
-        "model": "qwen3:32b",  # 确认你用的模型名
+        "model": "deepseek-ai/DeepSeek-V3",  # 确认你用的模型名
         "messages": [
             {"role": "user", "content": prompt}
         ],
@@ -50,7 +50,7 @@ no thinkning
     }
 
     headers = {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", "Authorization":  "Bearer sk-tbcaipmckbmbxkjpzmwgfutjtlgsnqecdmlvhlelinckvwok"
     }
 
     try:
